@@ -1,6 +1,7 @@
 package br.com.rgsystems.dscomerce.services;
 
 import br.com.rgsystems.dscomerce.dto.ProductDTO;
+import br.com.rgsystems.dscomerce.dto.ProductMinDTO;
 import br.com.rgsystems.dscomerce.entities.Product;
 import br.com.rgsystems.dscomerce.repositories.ProductRepository;
 import br.com.rgsystems.dscomerce.services.exceptions.DatabaseException;
@@ -31,9 +32,9 @@ public class ProductService {
         return dto;
     }
     @Transactional(readOnly = true)
-    public Page<ProductDTO>  findALL(String name, Pageable pageable){
+    public Page<ProductMinDTO>  findALL(String name, Pageable pageable){
         Page<Product> result = repository.searchByName(name, pageable);
-        return result.map(x -> new ProductDTO(x));
+        return result.map(x -> new ProductMinDTO(x));
     }
 
     @Transactional

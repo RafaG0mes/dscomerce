@@ -20,4 +20,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
                             WHERE tb_user.email = :email
             """)
     List<UserDetailProjection> searchUserAndRoleByEmail(String email);
+
+    Optional<User> findByEmail(String email);
 }

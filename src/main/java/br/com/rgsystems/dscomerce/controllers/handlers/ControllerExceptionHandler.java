@@ -1,7 +1,7 @@
 package br.com.rgsystems.dscomerce.controllers.handlers;
 
 import br.com.rgsystems.dscomerce.dto.CustomError;
-import br.com.rgsystems.dscomerce.dto.ValidationError;
+import br.com.rgsystems.dscomerce.dto.ValidationErrorDTO;
 import br.com.rgsystems.dscomerce.services.exceptions.DatabaseException;
 import br.com.rgsystems.dscomerce.services.exceptions.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -34,7 +34,7 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<CustomError> methodArgumentNotValidation(MethodArgumentNotValidException e, HttpServletRequest request){
         HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
-        ValidationError err = new ValidationError(Instant.now(), status.value(), "Dados inválidos", request.getRequestURI());
+        ValidationErrorDTO err = new ValidationErrorDTO(Instant.now(), status.value(), "Dados inválidos", request.getRequestURI());
         for(FieldError f : e.getBindingResult().getFieldErrors()){
             err.addError(f.getField(), f.getDefaultMessage());
         }

@@ -32,7 +32,7 @@ public class User implements UserDetails {
     private List<Order> orders = new ArrayList<>();
     public User(){}
 
-    public User(long id, String name, String email, String phone, LocalDate birthDate, String password) {
+    public User(Long id, String name, String email, String phone, LocalDate birthDate, String password) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -41,7 +41,7 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

@@ -4,7 +4,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ValidationErrorDTO extends CustomError{
+public class ValidationErrorDTO extends CustomErrorDTO {
 
     private List<FieldMessage> errors = new ArrayList<>();
 

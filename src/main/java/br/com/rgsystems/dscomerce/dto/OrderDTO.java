@@ -14,32 +14,31 @@ public class OrderDTO {
     private Long id;
     private Instant moment;
     private OrderStatus status;
-    private ClientDTO clientDTO;
-    private PaymentDTO paymentDTO;
-
-    @NotEmpty(message = "Deve ter ao menos um item")
-    private List<OrderItemDTO> itemDTOS = new ArrayList<>();
+    private ClientDTO client;
+    private PaymentDTO payment;
+    @NotEmpty(message = "Deve ter pelo menos um item")
+    private List<OrderItemDTO> items = new ArrayList<>();
 
     public OrderDTO() {
     }
 
-    public OrderDTO(Long id, Instant moment, OrderStatus status, ClientDTO clientDTO, PaymentDTO paymentDTO) {
+    public OrderDTO(Long id, Instant moment, OrderStatus status, ClientDTO client, PaymentDTO payment) {
         this.id = id;
         this.moment = moment;
         this.status = status;
-        this.clientDTO = clientDTO;
-        this.paymentDTO = paymentDTO;
+        this.client = client;
+        this.payment = payment;
     }
 
     public OrderDTO(Order entity) {
         id = entity.getId();
         moment = entity.getMoment();
         status = entity.getStatus();
-        clientDTO = new ClientDTO(entity.getClient());
-        paymentDTO = (entity.getPayment() == null) ? null : new PaymentDTO(entity.getPayment());
+        client = new ClientDTO(entity.getClient());
+        payment = (entity.getPayment() == null) ? null : new PaymentDTO(entity.getPayment());
         for (OrderItem item : entity.getItems()){
-            OrderItemDTO items = new OrderItemDTO(item);
-            itemDTOS.add(items);
+            OrderItemDTO itemDTO = new OrderItemDTO(item);
+            items.add(itemDTO);
         }
     }
 
@@ -55,22 +54,22 @@ public class OrderDTO {
         return status;
     }
 
-    public ClientDTO getClientDTO() {
-        return clientDTO;
+    public ClientDTO getClient() {
+        return client;
     }
 
-    public PaymentDTO getPaymentDTO() {
-        return paymentDTO;
+    public PaymentDTO getPayment() {
+        return payment;
     }
 
-    public List<OrderItemDTO> getItemDTOS() {
-        return itemDTOS;
+    public List<OrderItemDTO> getItemsDTO() {
+        return items;
     }
 
     public Double getTotal(){
         double sum = 0.0;
 
-        for (OrderItemDTO itemDTO : itemDTOS){
+        for (OrderItemDTO itemDTO : items){
             sum += itemDTO.getSubTotal();
         }
 

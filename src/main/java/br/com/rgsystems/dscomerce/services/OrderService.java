@@ -47,7 +47,7 @@ public class OrderService {
         User user = userService.authenticated();
         order.setClient(user);
 
-        for (OrderItemDTO itemDTO : dto.getItemsDTO()){
+        for (OrderItemDTO itemDTO : dto.getItems()){
             Product product = productRepository.getReferenceById(itemDTO.getProductId());
             OrderItem orderItem = new OrderItem(order, product, itemDTO.getQuantity(), product.getPrice());
             order.getItems().add(orderItem);
